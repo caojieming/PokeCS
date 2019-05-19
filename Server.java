@@ -122,38 +122,11 @@ public class Server
         else
           Battle.semiRound(connection1.getFirstPoke(), connection2.getFirstPoke(), connection1.getMove());
         
-        /*if(connection2.getFirstPoke().isFainted())//if connection2 poke faints
-         {
-         Pokemon[] team = connection2.getTeam();
-         for(int i = 0; i < 6; i++)
-         {
-         if(!team[i].isFainted())
-         {
-         connection2.swap(i);
-         break;
-         }
-         }
-         }*/
-        
-        /*else
-         {*/
         System.out.println("second attack");
         if(connection2.getMove().getName().equals("swap"))//continue working on swapping here
           connection2.swap(connection2.getSwapTarget());
         else
           Battle.semiRound(connection2.getFirstPoke(), connection1.getFirstPoke(), connection2.getMove());
-        /*if(connection1.getFirstPoke().isFainted())//if connection1 poke faints
-         {
-         Pokemon[] team = connection1.getTeam();
-         for(int i = 0; i < 6; i++)
-         {
-         if(!team[i].isFainted())
-         {
-         connection1.swap(i);
-         break;
-         }
-         }
-         }*/
       }
       
       else if(connection1.getFirstPoke().getSpeed() < connection2.getFirstPoke().getSpeed())//connection2 has faster speed
@@ -163,37 +136,11 @@ public class Server
           connection2.swap(connection2.getSwapTarget());
         else
           Battle.semiRound(connection2.getFirstPoke(), connection1.getFirstPoke(), connection2.getMove());
-        /*if(connection1.getFirstPoke().isFainted())//if connection1 poke faints
-         {
-         Pokemon[] team = connection1.getTeam();
-         for(int i = 0; i < 6; i++)
-         {
-         if(!team[i].isFainted())
-         {
-         connection1.swap(i);
-         break;
-         }
-         }
-         }*/
-        /*else
-         {*/
         System.out.println("second attack");
         if(connection1.getMove().getName().equals("swap"))//continue working on swapping here
           connection1.swap(connection1.getSwapTarget());
         else
           Battle.semiRound(connection1.getFirstPoke(), connection2.getFirstPoke(), connection1.getMove());
-        /*if(connection2.getFirstPoke().isFainted())//if connection2 poke faints
-         {
-         Pokemon[] team = connection2.getTeam();
-         for(int i = 0; i < 6; i++)
-         {
-         if(!team[i].isFainted())
-         {
-         connection2.swap(i);
-         break;
-         }
-         }
-         }*/
       }
       
       else if(connection1.getFirstPoke().getSpeed() == connection2.getFirstPoke().getSpeed())//if equal speeds
@@ -206,37 +153,11 @@ public class Server
             connection1.swap(connection1.getSwapTarget());
           else
             Battle.semiRound(connection1.getFirstPoke(), connection2.getFirstPoke(), connection1.getMove());
-          /*if(connection2.getFirstPoke().isFainted())//if connection2 poke faints
-           {
-           Pokemon[] team = connection2.getTeam();
-           for(int i = 0; i < 6; i++)
-           {
-           if(!team[i].isFainted())
-           {
-           connection2.swap(i);
-           break;
-           }
-           }
-           }*/
-          /*else
-           {*/
           System.out.println("second attack");
           if(connection2.getMove().getName().equals("swap"))//continue working on swapping here
             connection2.swap(connection2.getSwapTarget());
           else
             Battle.semiRound(connection2.getFirstPoke(), connection1.getFirstPoke(), connection2.getMove());
-          /*if(connection1.getFirstPoke().isFainted())//if connection1 poke faints
-           {
-           Pokemon[] team = connection1.getTeam();
-           for(int i = 0; i < 6; i++)
-           {
-           if(!team[i].isFainted())
-           {
-           connection1.swap(i);
-           break;
-           }
-           }
-           }*/
         }
         
         else//connection2 lucks out on speed
@@ -245,36 +166,10 @@ public class Server
             connection2.swap(connection2.getSwapTarget());
           else
             Battle.semiRound(connection2.getFirstPoke(), connection1.getFirstPoke(), connection2.getMove());
-          /*if(connection1.getFirstPoke().isFainted())//if connection1 poke faints
-           {
-           Pokemon[] team = connection1.getTeam();
-           for(int i = 0; i < 6; i++)
-           {
-           if(!team[i].isFainted())
-           {
-           connection1.swap(i);
-           break;
-           }
-           }
-           }*/
-          /*else
-           {*/
           if(connection1.getMove().getName().equals("swap"))//continue working on swapping here
             connection1.swap(connection1.getSwapTarget());
           else
             Battle.semiRound(connection1.getFirstPoke(), connection2.getFirstPoke(), connection1.getMove());
-          /*if(connection2.getFirstPoke().isFainted())//if connection2 poke faints
-           {
-           Pokemon[] team = connection2.getTeam();
-           for(int i = 0; i < 6; i++)
-           {
-           if(!team[i].isFainted())
-           {
-           connection2.swap(i);
-           break;
-           }
-           }
-           }*/
         }
         
       }

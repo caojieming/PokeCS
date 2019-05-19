@@ -13,7 +13,7 @@ public class ClientConnection extends Thread
   private Socket socket;//where land changes to bridge
   private BufferedReader in;//more accurate to call this incoming, incoming info
   private static PrintWriter out;//more accurate to call this outgoing, outgoing info
-  private Pokemon[] team;
+  private static Pokemon[] team;
   private static Pokemon activeEnemy;
   private static String[] list;
   private GUI gui;
@@ -76,6 +76,16 @@ public class ClientConnection extends Thread
     swapping = true;
   }
   
+  public static void faintSwap(int i)
+  {
+    index = i;
+    Pokemon temp = team[0];
+    team[0] = team[index];
+    team[index] = temp;
+    send("newSacrifice " + i);
+    GUI.swapPokemon();
+  }
+  
   private static void send(String message)
   {
     System.out.println("sending:  " + message);
@@ -116,10 +126,17 @@ public class ClientConnection extends Thread
           }
           team[0].setCurrentHealth(Integer.parseInt(tokens[4])); //I changed this from team
         }
+        else if(tokens[0].equals("faintSwap"))
+        {
+          GUI.faintSwap();
+          activeEnemy = Pokemon.pokemonList(tokens[1]);
+          activeEnemy.setCurrentHealth(Integer.parseInt(tokens[2]));
+        }
         else if(tokens[0].equals("fail"))
         {
           
         }
+        
 //        if (tokens[0].equals("good"))
 //        {
 //          display.goodGuess(tokens[1]);

@@ -4,9 +4,6 @@ import java.net.*;
 public class Server
 {
   
-  private ServerConnection player1;
-  private ServerConnection player2;
-  
   public static void main(String[] args) throws IOException
   {
     Server s = new Server();
@@ -45,6 +42,18 @@ public class Server
       return false;
   }
   
+  public static void faintUpdate(int id)
+  {
+    if(connection1.getID() == id)
+    {
+      connection2.send(update(connection2.getID()));
+    }
+    else if(connection2.getID() == id)
+    {
+      connection1.send(update(connection1.getID()));
+    }
+  }
+  
   public static String update(int id)
   {
     
@@ -55,7 +64,7 @@ public class Server
       {
         if(connection1.getFirstPoke().getCurrentHealth() <= 0)
         {
-          ServerConnection.override();
+          connection1.override();
           return "faintSwap " + connection2.getFirstPoke().getName() + " " + connection2.getFirstPoke().getCurrentHealth() 
             + " " + connection1.getID();
         }
@@ -66,11 +75,11 @@ public class Server
             + " " + connection1.getID();
         }
       }
-      else
+      else if(connection2.getID() == id)
       {
         if(connection2.getFirstPoke().getCurrentHealth() <= 0)
         {
-          ServerConnection.override();
+          connection2.override();
           return "faintSwap " + connection1.getFirstPoke().getName() + " " + connection1.getFirstPoke().getCurrentHealth() 
             + " " + connection2.getID();
         }
@@ -81,6 +90,10 @@ public class Server
             + " " + connection2.getID();
         }
       }
+      else
+      {
+        return "id error: could not find id";
+      }
     }
     else
     {
@@ -89,18 +102,23 @@ public class Server
     
   }
   
+  public static boolean bothStoredMoves()
+  {
+    return connection1.getMove() != null && connection2.getMove() != null;
+  }
+  
   public static void readyForBattle()//worry about accuracy and semirounds here
   {
     System.out.println("readyForBattle:  " + connection1.getMove() + ", " + connection2.getMove());
     if (connection1.getMove() != null && connection2.getMove() != null)
     {
-      //System.out.println("move: " + connection1.getMove().getName() + ", ID: " + connection1.getID());
-      //System.out.println("move: " + connection2.getMove().getName() + ", ID: " + connection2.getID());
+      System.out.println("move: " + connection1.getMove().getName() + ", ID: " + connection1.getID());
+      System.out.println("move: " + connection2.getMove().getName() + ", ID: " + connection2.getID());
       if(connection1.getFirstPoke().getSpeed() > connection2.getFirstPoke().getSpeed())//connection1 has faster speed
       {
         System.out.println("first attack");
         if(connection1.getMove().getName().equals("swap"))//continue working on swapping here
-          connection1.swap(connection1.getSwapTarget());
+          connection1.swap(connection1.getSwapTarget());//this works completely fine
         else
           Battle.semiRound(connection1.getFirstPoke(), connection2.getFirstPoke(), connection1.getMove());
         
@@ -262,12 +280,12 @@ public class Server
       }
       connection1.clearMove();
       connection2.clearMove();
-      send(update(connection1.getID()), connection2);
+      send(update(connection1.getID()), connection2);//sending info 
       send(update(connection2.getID()), connection1);
     }
     else
     {
-      System.out.println("NANI");
+      System.out.println("first move has been selected, nothing is supposed to happen");
     }
   }
   
